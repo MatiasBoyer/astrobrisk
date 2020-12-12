@@ -2,9 +2,9 @@
 Infinite scroller android game source.
 
 ## Screenshots
-![Main menu](.Docs/Images/0.png)
-![PowerUp Shop](.Docs/Images/1.png)
-![Game](.Docs/Images/2.png)
+![Main menu](Docs/Images/0.png)
+![PowerUp Shop](Docs/Images/1.png)
+![Game](Docs/Images/2.png)
 
 ## How does the game work?
 ### 0_main.unity:
