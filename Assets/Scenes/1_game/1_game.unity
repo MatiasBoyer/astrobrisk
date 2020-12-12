@@ -593,6 +593,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1708921651, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1708921651, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 1708921651, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1920
+      objectReference: {fileID: 0}
     - target: {fileID: 7811260626427989210, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
       propertyPath: m_Name
       value: Player
