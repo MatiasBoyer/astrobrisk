@@ -29,8 +29,10 @@ public class PlayerUI : MonoBehaviour
         PControl = GetComponent<PlayerController>();
         Rb = PControl.Rb3d;
 
-        LeanTween.move(G_Curtain, new Vector2(0, 0), 0).setOnComplete(() => { G_Curtain.gameObject.SetActive(true); });
-        LeanTween.move(G_Curtain, new Vector2(-2000, 0), 1.0f).setOnComplete(() => { G_Curtain.gameObject.SetActive(false); });
+        LeanTween.move(G_Curtain, new Vector2(0, 0), 0).setOnComplete(() => {
+            G_Curtain.gameObject.SetActive(true);
+            LeanTween.move(G_Curtain, new Vector2(-2000, 0), 1.0f).setOnComplete(() => { G_Curtain.gameObject.SetActive(false); });
+            });
     }
 
     private void FixedUpdate()
@@ -55,6 +57,9 @@ public class PlayerUI : MonoBehaviour
 
     public void SpawnMoneyTextOnPos(int money, Vector2 screenPos, float time)
     {
+        if (money == 0)
+            return;
+
         Vector3 finalPos = Camera.main.WorldToScreenPoint(G_MV_MoneyViewer.transform.position)
             - new Vector3(Screen.width / 2, Screen.height / 2)
             - new Vector3(0, G_MV_MoneyViewer.preferredHeight / 2);
@@ -93,10 +98,5 @@ public class PlayerUI : MonoBehaviour
                 Destroy(spawned_text);
             });
         });
-    }
-
-    public static float Map(float value, float fromSource, float toSource, float fromTarget, float toTarget)
-    {
-        return (value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget;
     }
 }

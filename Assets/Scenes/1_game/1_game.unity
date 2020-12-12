@@ -276,6 +276,24 @@ LightingSettings:
   m_PVRFilteringAtrousPositionSigmaDirect: 0.5
   m_PVRFilteringAtrousPositionSigmaIndirect: 2
   m_PVRFilteringAtrousPositionSigmaAO: 1
+--- !u!1 &902743944 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7811260626427989210, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
+  m_PrefabInstance: {fileID: 230287109684589949}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &902743945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 902743944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f79f86bb4bb55154db165bffde6a44a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnPos: {fileID: 7811260626397035419}
 --- !u!1 &986795137
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,7 +490,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1514485778}
   - component: {fileID: 1514485779}
-  - component: {fileID: 1514485780}
   m_Layer: 0
   m_Name: LevelController
   m_TagString: Untagged
@@ -508,18 +525,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeedIncrement: 0.25
   MovementSpeedTime: 0.8
---- !u!114 &1514485780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1514485777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a91c07f74c4106c49b06e75fca50c5a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1706235094
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,21 +586,13 @@ Transform:
   m_Father: {fileID: 1296527335}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &7811260626121165650
+--- !u!1001 &230287109684589949
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 557516576, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1708921652, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7811260626427989210, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
       propertyPath: m_Name
       value: Player
@@ -646,3 +643,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
+--- !u!4 &7811260626397035419 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 932278473, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
+  m_PrefabInstance: {fileID: 230287109684589949}
+  m_PrefabAsset: {fileID: 0}

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11854a203bd205a439917efce8c35e79, type: 3}
+  m_Name: MoneyGrabber
+  m_EditorClassIdentifier: 
+  pup_name: Money Grabber
+  pup_desc: Grabs money when you destroy an asteroid
+  pup_levels:
+    pup_base: 100
+    Levels:
+    - UpgradeCost: 500
+      pup_multiplier: 1
+    - UpgradeCost: 1500
+      pup_multiplier: 1.5
+    - UpgradeCost: 3000
+      pup_multiplier: 5
+  CurrentLevel: 0
+  pup_gameobject: {fileID: 0}

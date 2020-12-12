@@ -37,6 +37,9 @@ public class MissileShooter : MonoBehaviour
         PController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
         StartCoroutine(TargetCalculator());
+
+        PowerUpSO pupso = PowerUpManager.instance.FindPUPByName("MissileShooter");
+        ClickDelay = pupso.pup_levels.pup_base * pupso.GetCurrentLevelData().pup_multiplier;
     }
 
     public void Update()

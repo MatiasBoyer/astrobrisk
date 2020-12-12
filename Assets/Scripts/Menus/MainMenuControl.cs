@@ -17,12 +17,17 @@ public class MainMenuControl : MonoBehaviour
 
     private void Start()
     {
+        Application.targetFrameRate = 60;
+        
         //spaceshipPosition
         //LeanTween.move(T_Spaceship.gameObject, T_Spaceship.up * 5.0f, 0);
         LeanTween.move(T_Spaceship.gameObject, new Vector3(1, 0, -1.5f), 1.5f).setEaseInOutCubic().setOnComplete(() => LoadLevelButton.interactable = true);
 
-        LeanTween.move(Curtain, new Vector2(Screen.width/2, Screen.height/2), 0).setOnComplete(() => { Curtain.gameObject.SetActive(true); });
-        LeanTween.move(Curtain, new Vector2(-Screen.width*2, Screen.height / 2), 1.0f).setEaseInOutCubic().setOnComplete(() => { Curtain.gameObject.SetActive(false); });
+        LeanTween.move(Curtain, new Vector2(Screen.width/2, Screen.height/2), 0).setOnComplete(() =>
+        {
+            Curtain.gameObject.SetActive(true);
+            LeanTween.move(Curtain, new Vector2(-Screen.width * 2, Screen.height / 2), 1.0f).setEaseInOutCubic().setOnComplete(() => { Curtain.gameObject.SetActive(false); });
+        });
     }
 
     public void LoadLevel()
