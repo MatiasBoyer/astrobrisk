@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MissileShooter : MonoBehaviour
 {
 
     public LayerMask TargeteableLayerMask;
 
+    public Canvas Canvas;
     public RectTransform CrosshairTransform;
 
     [Header("Shooter Settings")]
@@ -32,20 +34,28 @@ public class MissileShooter : MonoBehaviour
 
     PlayerController PController;
 
+    Vector2 scaleRef;
+    RectTransform CanvasRect;
+
     private void Start()
     {
         PController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        Canvas.worldCamera = PController.GetComponent<PlayerUI>().UI_Cam;
+        CanvasRect = Canvas.GetComponent<RectTransform>();
 
         StartCoroutine(TargetCalculator());
 
         PowerUpSO pupso = PowerUpManager.instance.FindPUPByName("MissileShooter");
         ClickDelay = pupso.pup_levels.pup_base * pupso.GetCurrentLevelData().pup_multiplier;
+
+        CanvasScaler cscaler = Canvas.GetComponent<CanvasScaler>();
+        scaleRef = new Vector2(cscaler.referenceResolution.x / Screen.width, cscaler.referenceResolution.y / Screen.height);
     }
 
     public void Update()
     {
         //Click detection
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             if ((Time.time - LastClick) < ClickDelay && (Time.time - LastShoot) > ShootDelay && selectedTarget != null)
             {
@@ -59,7 +69,8 @@ public class MissileShooter : MonoBehaviour
         //Crosshair Movement
         if (selectedTarget != null)
         {
-            Vector3 crosshairpos = Camera.main.WorldToScreenPoint(selectedTarget.position);
+            Vector2 crosshairpos = Extensions.WorldToCanvas(CanvasRect, Camera.main.WorldToScreenPoint(selectedTarget.position));
+
             CrosshairTransform.anchoredPosition = Vector3.Lerp(CrosshairTransform.anchoredPosition, crosshairpos, Time.deltaTime * 5f);
 
             if(!crosshairEnabled)

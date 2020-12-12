@@ -35,7 +35,7 @@ public class PowerUpSO : ScriptableObject
 
     public void LoadFromPlayerPrefs()
     {
-        CurrentLevel = PlayerPrefs.GetInt(pup_name, -1);
+        //CurrentLevel = PlayerPrefs.GetInt(pup_name, -1);
     }
     public void SaveToPlayerPrefs()
     {

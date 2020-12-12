@@ -9,6 +9,9 @@ public class PlayerUI : MonoBehaviour
 
     public GameObject RetryScreen;
 
+    public RectTransform CanvasRect;
+    public Camera UI_Cam;
+
     [Header("Game")]
     public TextMeshProUGUI G_SpeedUPS;
     private float SpeedUPS;
@@ -55,14 +58,12 @@ public class PlayerUI : MonoBehaviour
         });
     }
 
-    public void SpawnMoneyTextOnPos(int money, Vector2 screenPos, float time)
+    public void SpawnMoneyTextOnPos(int money, Vector3 worldpos, float time)
     {
         if (money == 0)
             return;
 
-        Vector3 finalPos = Camera.main.WorldToScreenPoint(G_MV_MoneyViewer.transform.position)
-            - new Vector3(Screen.width / 2, Screen.height / 2)
-            - new Vector3(0, G_MV_MoneyViewer.preferredHeight / 2);
+        Vector3 finalPos = Extensions.WorldToCanvas(CanvasRect, Camera.main.WorldToScreenPoint(G_MV_MoneyViewer.transform.position));
 
         //spawn obj
         GameObject spawned_text = (GameObject)Instantiate(G_MV_MoneyTextPrefab, G_MV_MoneyParent);
@@ -71,7 +72,7 @@ public class PlayerUI : MonoBehaviour
 
         //assign data to obj
         s_text.text = string.Format("${0}", money.ToString());
-        s_text.rectTransform.anchoredPosition = screenPos;
+        s_text.rectTransform.anchoredPosition = Extensions.WorldToCanvas(CanvasRect, Camera.main.WorldToScreenPoint(worldpos));
 
         /*float test_a = time * (1 / 4);
         float test_b = time * 1/4;

@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!224 &298656011 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1708921649, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
+  m_PrefabInstance: {fileID: 230287109684589949}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &419167388
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,6 +220,11 @@ Transform:
   m_Father: {fileID: 1706235095}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 155, y: -50, z: 0}
+--- !u!20 &842675805 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1315192466, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
+  m_PrefabInstance: {fileID: 230287109684589949}
+  m_PrefabAsset: {fileID: 0}
 --- !u!850595691 &898287838
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -593,6 +603,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1421868185, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
+      propertyPath: UI_Cam
+      value: 
+      objectReference: {fileID: 842675805}
+    - target: {fileID: 1421868185, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
+      propertyPath: CanvasRect
+      value: 
+      objectReference: {fileID: 298656011}
     - target: {fileID: 1708921651, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
       propertyPath: m_UiScaleMode
       value: 1

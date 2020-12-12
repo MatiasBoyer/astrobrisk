@@ -68,12 +68,12 @@ public class PowerUpManager : MonoBehaviour
             PUI = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerUI>();
         }
     }
-    public void AddMoneyToCurrent(Vector2 screenPos)
+    public void AddMoneyToCurrent(Vector3 worldpos)
     {
         int m = ReturnMoneyToGive();
         CurrentMoney += m;
         if(PUI != null)
-            PUI.SpawnMoneyTextOnPos(m, screenPos, 1.5f);
+            PUI.SpawnMoneyTextOnPos(m, worldpos, 1.5f);
     }
     public int ReturnMoneyToGive()
     {
