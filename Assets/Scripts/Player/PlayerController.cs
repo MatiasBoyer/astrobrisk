@@ -42,8 +42,6 @@ public class PlayerController : MonoBehaviour
 
     private PlayerUI _PlayerUI;
 
-    private ShaderEffect_Scanner SE_Scanner;
-
     private void Awake()
     {
         Rb3d = PlayerModel.GetComponent<Rigidbody>();
@@ -58,8 +56,6 @@ public class PlayerController : MonoBehaviour
         {
             brokenRbs.Add(t.GetComponent<Rigidbody>());
         }
-
-        SE_Scanner = _Camera.GetComponent<ShaderEffect_Scanner>();
     }
 
     private void Update()
@@ -166,13 +162,6 @@ public class PlayerController : MonoBehaviour
         ASource.PlayOneShot(A_Explosion);
 
         _PlayerUI.ShowRetryScreen();
-
-        float t = 0.0f;
-        EventsCouroutiner.instance.CallEventFor(5.0f, () =>
-        {
-            t += Time.deltaTime / 75.0f;
-            SE_Scanner.area = Mathf.Lerp(SE_Scanner.area, 1.0f, t);
-        });
     }
 
     public void EnableColliders(bool _enable)

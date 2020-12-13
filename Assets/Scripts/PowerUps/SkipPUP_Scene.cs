@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class SkipPUP_Scene : MonoBehaviour
 {
@@ -18,7 +19,10 @@ public class SkipPUP_Scene : MonoBehaviour
     Collider col;
     LevelControl lctrl;
     PlayerController pctrl;
-    ShaderEffect_BleedingColors bleedcolor;
+
+    private PostProcessVolume v;
+    private ChromaticAberration cab;
+    private LensDistortion ldi;
 
     private void Awake()
     {
@@ -31,7 +35,10 @@ public class SkipPUP_Scene : MonoBehaviour
     {
         lctrl = GameObject.FindObjectOfType<LevelControl>();
         pctrl = GameObject.FindObjectOfType<PlayerController>();
-        bleedcolor = Camera.main.GetComponent<ShaderEffect_BleedingColors>();
+
+        v = Camera.main.GetComponent<PostProcessVolume>();
+        v.profile.TryGetSettings(out cab);
+        v.profile.TryGetSettings(out ldi);
     }
 
     private void Update()
@@ -67,20 +74,34 @@ public class SkipPUP_Scene : MonoBehaviour
         startspeed = pctrl.MovementSpeed;
         pctrl.EnableColliders(false);
 
-        bleedcolor.intensity = 0;
-        bleedcolor.shift = 0;
-
-        bleedcolor.enabled = true;
-
         while(upd)
         {
             if (s < maxspeed)
                 s += Time.deltaTime * 2.5f;
 
-            bleedcolor.intensity = Extensions.Remap(s, 0, maxspeed * .25f, 0, 3);
-            bleedcolor.shift += Time.deltaTime;
-
             pctrl.MovementSpeed = pctrl.MovementSpeed + s;
+
+            LeanTween.value(ldi.intensity, -50, duration * 3/4).setOnUpdate((float val) => 
+            {
+                ldi.intensity.value = val;
+            }).setOnComplete(() =>
+            {
+                LeanTween.value(ldi.intensity, 0, duration * 1 / 4).setOnUpdate((float val) =>
+                {
+                    ldi.intensity.value = val;
+                });
+            });
+
+            LeanTween.value(cab.intensity, 1, duration * 3/4).setOnUpdate((float val) =>
+            {
+                cab.intensity.value = val;
+            }).setOnComplete(() =>
+            {
+                LeanTween.value(cab.intensity, 0, duration * 1/4).setOnUpdate((float val) =>
+                {
+                    cab.intensity.value = val;
+                });
+            });
 
             t += Time.deltaTime;
             if(t >= duration)
@@ -93,11 +114,6 @@ public class SkipPUP_Scene : MonoBehaviour
                     lctrl.StartCoroutine(lctrl.IncrementSpeed());
                     pctrl.EnableColliders(true);
                 });
-
-                LeanTween.value(bleedcolor.shift, 0, 1.25f).setEaseInOutCubic().setOnUpdate((float val) =>
-                {
-                    bleedcolor.shift = val;
-                }).setOnComplete(() => bleedcolor.enabled = false);
 
                 upd = false;
                 Destroy(gameObject);

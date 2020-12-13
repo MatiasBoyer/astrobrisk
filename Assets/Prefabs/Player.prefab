@@ -334,7 +334,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 20, y: 0, z: 20, w: 0}
+  m_margin: {x: 25, y: 0, z: 25, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1128,6 +1128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1972ddd1a6fe9741a1fd5c5747d419e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AMixer: {fileID: 0}
   ASource: {fileID: 5603024904423690449}
   Songs:
   - song_name: Someone Elses Memories
@@ -1148,7 +1149,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -266663223026825671, guid: c14f1775b243d2e449ec545b0eadc943, type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -6669,9 +6670,9 @@ RectTransform:
   m_Father: {fileID: 3235154817620063682}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 540, y: 87.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1079.9999, y: 87.5}
   m_SizeDelta: {x: 1080.0001, y: 175}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &1607030888
@@ -15493,11 +15494,7 @@ GameObject:
   - component: {fileID: 7811260626346520946}
   - component: {fileID: 7811260626346520909}
   - component: {fileID: 7811260626346520908}
-  - component: {fileID: 557516576}
   - component: {fileID: 557516571}
-  - component: {fileID: 557516578}
-  - component: {fileID: 230287109762106394}
-  - component: {fileID: 230287109684589951}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -15571,20 +15568,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7811260626346520910}
   m_Enabled: 1
---- !u!114 &557516576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7811260626346520910}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42cd8dcae69d178488f5efa28e7c7e78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shader: {fileID: 4800000, guid: 95703b29f49b899499233ea7308bb800, type: 3}
-  BlockCount: 150
 --- !u!114 &557516571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15601,50 +15584,6 @@ MonoBehaviour:
   DefaultRotInfluence: {x: 1, y: 1, z: 1}
   RestPositionOffset: {x: 0, y: 8, z: -14}
   RestRotationOffset: {x: 7, y: 0, z: 0}
---- !u!114 &557516578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7811260626346520910}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e64941b1002d73d45a26f04fa597c5c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Magnitude: 2
-  Roughness: 10
-  FadeOutTime: 5
---- !u!114 &230287109762106394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7811260626346520910}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f1da63591dc67445b632e87664be9fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shader: {fileID: 4800000, guid: 703b245f98d111d418d988ba74eefbce, type: 3}
-  pixelSizeX: 8
-  pixelSizeY: 8
-  lockXY: 1
---- !u!114 &230287109684589951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7811260626346520910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f1902ae72b3745348e0587879eb2d53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  area: 0
 --- !u!1 &7811260626427144231
 GameObject:
   m_ObjectHideFlags: 0
@@ -15845,7 +15784,7 @@ MonoBehaviour:
   PlayerModel: {fileID: 7170266165123575061}
   MinPositions: {x: -6, y: -6}
   MaxPositions: {x: 6, y: 17}
-  MovementSpeed: 10
+  MovementSpeed: 15
   MaxRotationSpeed: 50
   MaxDragVelocity: {x: 0.2, y: 0.2}
   ModelParent: {fileID: 7811260626427144228}
@@ -15878,7 +15817,7 @@ MonoBehaviour:
   G_MV_MoneyViewer: {fileID: 28284644}
   G_RS_RetryScreen: {fileID: 1933283115}
   G_RS_MaxDistance: {fileID: 1787664181}
-  G_MP_CurrentSongParent: {fileID: 1607030885}
+  G_MP_CurrentSongParent: {fileID: 1607030886}
   G_MP_CurrentSong: {fileID: 61807035}
 --- !u!114 &902743945
 MonoBehaviour:

@@ -31,6 +31,7 @@ public class MainMenuControl : MonoBehaviour
 
         LeanTween.move(Curtain, new Vector2(Screen.width/2, Screen.height/2), 0).setOnComplete(() =>
         {
+            Curtain.gameObject.SetActive(true);
             LeanTween.move(Curtain, new Vector2(-Screen.width * 2, Screen.height / 2), 1.0f).setEaseInOutCubic().setOnComplete(() => { Curtain.gameObject.SetActive(false); });
         });
     }
