@@ -18,7 +18,7 @@ public class LevelControl : MonoBehaviour
         StartCoroutine(IncrementSpeed());
     }
 
-    IEnumerator IncrementSpeed()
+    public IEnumerator IncrementSpeed()
     {
         while(true)
         {

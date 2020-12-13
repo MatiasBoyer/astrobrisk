@@ -40,6 +40,8 @@ public class PlayerController : MonoBehaviour
 
     private PlayerUI _PlayerUI;
 
+    private ShaderEffect_Scanner SE_Scanner;
+
     private void Awake()
     {
         Rb3d = PlayerModel.GetComponent<Rigidbody>();
@@ -50,6 +52,8 @@ public class PlayerController : MonoBehaviour
         {
             brokenRbs.Add(t.GetComponent<Rigidbody>());
         }
+
+        SE_Scanner = _Camera.GetComponent<ShaderEffect_Scanner>();
     }
 
     private void Update()
@@ -119,13 +123,15 @@ public class PlayerController : MonoBehaviour
 
     public void OnColEnter(Collision collision)
     {
+        if (collision.transform.tag == "ScenePowerup")
+            return;
+
         float collisionForce = (collision.impulse.magnitude / Time.fixedDeltaTime) + 1;
         //Debug.Log(collisionForce);
 
         canMove = false;
 
-        foreach(BoxCollider b in p_collider)
-            b.enabled = false;
+        EnableColliders(false);
 
         NormalModel.gameObject.SetActive(false);
         BrokenModel.gameObject.SetActive(true);
@@ -143,22 +149,20 @@ public class PlayerController : MonoBehaviour
 
         ASource.PlayOneShot(A_Explosion);
 
-        _PlayerUI.RetryScreen.SetActive(true);
-        LeanTween.scale(_PlayerUI.RetryScreen, new Vector3(0, 0, 0), 0);
-        LeanTween.scale(_PlayerUI.RetryScreen, new Vector3(1, 1, 1), .25f);
+        _PlayerUI.ShowRetryScreen();
+
+        float t = 0.0f;
+        EventsCouroutiner.instance.CallEventFor(5.0f, () =>
+        {
+            t += Time.deltaTime / 50.0f;
+            SE_Scanner.area = Mathf.Lerp(SE_Scanner.area, 1.0f, t);
+        });
     }
 
-    public bool isUpsideDown()
+    public void EnableColliders(bool _enable)
     {
-        //Debug.Log(Vector3.Dot(transform.up, Vector3.up));
-        return Vector3.Dot(transform.up, Vector3.up) < -1f;
-    }
-
-    public float booltoneg(bool b)
-    {
-        if (b)
-            return 1.0f;
-        return -1.0f;
+        foreach (BoxCollider b in p_collider)
+            b.enabled = _enable;
     }
 
     private void OnGUI()

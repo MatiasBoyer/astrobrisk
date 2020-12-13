@@ -7,21 +7,23 @@ using TMPro;
 public class PlayerUI : MonoBehaviour
 {
 
-    public GameObject RetryScreen;
-
     public RectTransform CanvasRect;
     public Camera UI_Cam;
+
+    public RectTransform G_Curtain;
 
     [Header("Game")]
     public TextMeshProUGUI G_SpeedUPS;
     private float SpeedUPS;
-    
+
     [Header("Game:MoneyVisualizer")]
     public GameObject G_MV_MoneyTextPrefab;
     public Transform G_MV_MoneyParent;
     public TextMeshProUGUI G_MV_MoneyViewer;
 
-    public RectTransform G_Curtain;
+    [Header("Game:RetryScreen")]
+    public GameObject G_RS_RetryScreen;
+    public TextMeshProUGUI G_RS_MaxDistance;
 
     private Vector3 finalPos;
     private PlayerController PControl;
@@ -35,7 +37,7 @@ public class PlayerUI : MonoBehaviour
         LeanTween.move(G_Curtain, new Vector2(0, 0), 0).setOnComplete(() => {
             G_Curtain.gameObject.SetActive(true);
             LeanTween.move(G_Curtain, new Vector2(-2000, 0), 1.0f).setOnComplete(() => { G_Curtain.gameObject.SetActive(false); });
-            });
+        });
     }
 
     private void FixedUpdate()
@@ -53,8 +55,8 @@ public class PlayerUI : MonoBehaviour
     {
         LeanTween.move(G_Curtain, new Vector2(0, 0), 1.0f).setEaseInOutCubic().setOnStart(() => { G_Curtain.gameObject.SetActive(true); });
 
-        EventsCouroutiner.instance.CallEventAfter(0.9f, () => { 
-            SceneManager.LoadScene(levelId); 
+        EventsCouroutiner.instance.CallEventAfter(0.9f, () => {
+            SceneManager.LoadScene(levelId);
         });
     }
 
@@ -83,21 +85,30 @@ public class PlayerUI : MonoBehaviour
         //animate obj
         // (1/4) time: spawn object and do an animation bounce
         // (3/4) time: go to finalPos on an easeInOutCubic, then scale and destroy.
-        LeanTween.scale(spawned_text, new Vector3(1, 1, 1) * .5f, time * 1/4).setEaseInOutBounce().setOnComplete(() =>
-        {
-            EventsCouroutiner.instance.CallEventAfterFor((time * 1 / 4) / 2, time * 3 / 4, () =>
-                      {
-                          s_text.color = Color.Lerp(s_text.color, new Color(1, 1, 1, 0), Time.deltaTime / 2);
-                      });
-            EventsCouroutiner.instance.CallEventAfter((time * 1 / 4) / 2, () =>
-                  {
-                      LeanTween.scale(spawned_text, Vector3.zero, time * 3 / 4).setEaseInOutCubic();
-                  });
+        LeanTween.scale(spawned_text, new Vector3(1, 1, 1) * .5f, time * 1 / 4).setEaseInOutBounce().setOnComplete(() =>
+          {
+              EventsCouroutiner.instance.CallEventAfterFor((time * 1 / 4) / 2, time * 3 / 4, () =>
+                        {
+                            s_text.color = Color.Lerp(s_text.color, new Color(1, 1, 1, 0), Time.deltaTime / 2);
+                        });
+              EventsCouroutiner.instance.CallEventAfter((time * 1 / 4) / 2, () =>
+                    {
+                        LeanTween.scale(spawned_text, Vector3.zero, time * 3 / 4).setEaseInOutCubic();
+                    });
 
-            LeanTween.moveLocal(spawned_text, finalPos, time * 3 / 4).setEaseInOutCubic().setOnComplete(() =>
-            {
-                Destroy(spawned_text);
-            });
-        });
+              LeanTween.moveLocal(spawned_text, finalPos, time * 3 / 4).setEaseInOutCubic().setOnComplete(() =>
+              {
+                  Destroy(spawned_text);
+              });
+          });
+    }
+
+    public void ShowRetryScreen()
+    {
+        G_RS_MaxDistance.text = string.Format("{0}u", transform.position.z.ToString("0.00"));
+
+        G_RS_RetryScreen.SetActive(true);
+        LeanTween.scale(G_RS_RetryScreen, new Vector3(0, 0, 0), 0);
+        LeanTween.scale(G_RS_RetryScreen, new Vector3(1, 1, 1), .25f);
     }
 }

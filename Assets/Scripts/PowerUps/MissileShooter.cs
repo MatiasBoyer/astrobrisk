@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class MissileShooter : MonoBehaviour
 {
 
+    public enum crosshairState { OFF, FADING, ON };
+
     public LayerMask TargeteableLayerMask;
 
     public Canvas Canvas;
@@ -33,9 +35,9 @@ public class MissileShooter : MonoBehaviour
     private bool crosshairEnabled = false;
 
     PlayerController PController;
-
-    Vector2 scaleRef;
     RectTransform CanvasRect;
+
+    crosshairState crosshairstate;
 
     private void Start()
     {
@@ -48,8 +50,7 @@ public class MissileShooter : MonoBehaviour
         PowerUpSO pupso = PowerUpManager.instance.FindPUPByName("MissileShooter");
         ClickDelay = pupso.pup_levels.pup_base * pupso.GetCurrentLevelData().pup_multiplier;
 
-        CanvasScaler cscaler = Canvas.GetComponent<CanvasScaler>();
-        scaleRef = new Vector2(cscaler.referenceResolution.x / Screen.width, cscaler.referenceResolution.y / Screen.height);
+        CrosshairTransform.localScale = Vector3.zero;
     }
 
     public void Update()
@@ -66,25 +67,33 @@ public class MissileShooter : MonoBehaviour
             LastClick = Time.time;
         }
 
+
         //Crosshair Movement
         if (selectedTarget != null)
         {
             Vector2 crosshairpos = Extensions.WorldToCanvas(CanvasRect, Camera.main.WorldToScreenPoint(selectedTarget.position));
 
-            CrosshairTransform.anchoredPosition = Vector3.Lerp(CrosshairTransform.anchoredPosition, crosshairpos, Time.deltaTime * 5f);
+            CrosshairTransform.anchoredPosition = Vector3.Lerp(CrosshairTransform.anchoredPosition, crosshairpos, Time.deltaTime * 2.5f);
 
-            if(!crosshairEnabled)
+            if (!crosshairEnabled && crosshairstate == crosshairState.OFF)
             {
-                LeanTween.scale(CrosshairTransform, new Vector3(0.5f, 0.5f, 0.5f), 0.5f).setEaseInOutCubic();
-
+                CrosshairTransform.gameObject.SetActive(true);
+                LeanTween.scale(CrosshairTransform, new Vector3(0.5f, 0.5f, 0.5f), .5f).setEaseInOutBounce().setOnComplete(() =>
+                {
+                    crosshairstate = crosshairState.ON;
+                });
                 crosshairEnabled = true;
             }
         }
         else
         {
-            if(crosshairEnabled)
+            if(crosshairEnabled && crosshairstate == crosshairState.ON)
             {
-                LeanTween.scale(CrosshairTransform, new Vector3(0.5f, 0.5f, 0.5f), 0.5f).setEaseInOutCubic();
+                LeanTween.scale(CrosshairTransform, Vector3.zero, .5f).setEaseInOutBounce().setOnComplete(()=>
+                {
+                    CrosshairTransform.gameObject.SetActive(false);
+                    crosshairstate = crosshairState.OFF;
+                });
                 crosshairEnabled = false;
             }
         }

@@ -28,14 +28,15 @@ public class PowerUpSO : ScriptableObject
 
     [Tooltip("Levels you can buy on the shop.")]
     public _PUP_LevelSettings pup_levels;
-    public int CurrentLevel;
+    public int CurrentLevel = -1;
+    public int DefaultLevel = -1; // DefaultLevel >= -1
 
     [Tooltip("Gameobject instantiated in the spaceship. (It CAN be null!)")]
     public GameObject pup_gameobject;
 
     public void LoadFromPlayerPrefs()
     {
-        //CurrentLevel = PlayerPrefs.GetInt(pup_name, -1);
+        CurrentLevel = PlayerPrefs.GetInt(pup_name, DefaultLevel);
     }
     public void SaveToPlayerPrefs()
     {

@@ -19,7 +19,8 @@ MonoBehaviour:
     Levels:
     - UpgradeCost: 500
       pup_multiplier: 1
-    - UpgradeCost: 1500
+    - UpgradeCost: 1000
       pup_multiplier: 0.5
   CurrentLevel: 0
+  DefaultLevel: -1
   pup_gameobject: {fileID: 8006173915164843602, guid: 4dae3930be2f2c74ca97aa0ce972c21e, type: 3}
