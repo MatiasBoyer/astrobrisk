@@ -1,4 +1,4 @@
-# Spaceship Android Game
+# ASTROBRISK
 Infinite scroller android game source.
 
 ## Screenshots
