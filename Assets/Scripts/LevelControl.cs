@@ -8,6 +8,7 @@ public class LevelControl : MonoBehaviour
     [Header("Movement")]
     public float MovementSpeedIncrement;
     public float MovementSpeedTime;
+    public float MovementSpeedExponent;
 
     PlayerController PController;
 
@@ -23,7 +24,10 @@ public class LevelControl : MonoBehaviour
         while(true)
         {
             if (PController.canMove)
+            {
                 PController.MovementSpeed += MovementSpeedIncrement;
+                PController.MovementSpeed = Mathf.Pow(PController.MovementSpeed, MovementSpeedExponent);
+            }
             else
                 yield break;
             yield return new WaitForSeconds(MovementSpeedTime);

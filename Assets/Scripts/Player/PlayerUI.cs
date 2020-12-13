@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -25,13 +26,20 @@ public class PlayerUI : MonoBehaviour
     public GameObject G_RS_RetryScreen;
     public TextMeshProUGUI G_RS_MaxDistance;
 
+    [Header("Game:MusicPlayer")]
+    public RectTransform G_MP_CurrentSongParent;
+    public TextMeshProUGUI G_MP_CurrentSong;
+
     private Vector3 finalPos;
     private PlayerController PControl;
     private Rigidbody Rb;
 
+    private CanvasScaler CScaler;
+
     private void Start()
     {
         PControl = GetComponent<PlayerController>();
+        CScaler = CanvasRect.GetComponent<CanvasScaler>();
         Rb = PControl.Rb3d;
 
         LeanTween.move(G_Curtain, new Vector2(0, 0), 0).setOnComplete(() => {
@@ -43,8 +51,8 @@ public class PlayerUI : MonoBehaviour
     private void FixedUpdate()
     {
         //SPEED
-        float sups = Rb.velocity.magnitude + PControl.MovementSpeed;
-        SpeedUPS = Mathf.Lerp(SpeedUPS, sups, Time.deltaTime * 5);
+        float sups = PControl.MovementSpeed; //Rb.velocity.magnitude + PControl.MovementSpeed;
+        SpeedUPS = Mathf.Lerp(SpeedUPS, sups, Time.deltaTime * 2.5f);
         G_SpeedUPS.text = string.Format("{0} u/s", SpeedUPS.ToString("0.00"));
 
         //MONEY
@@ -56,6 +64,7 @@ public class PlayerUI : MonoBehaviour
         LeanTween.move(G_Curtain, new Vector2(0, 0), 1.0f).setEaseInOutCubic().setOnStart(() => { G_Curtain.gameObject.SetActive(true); });
 
         EventsCouroutiner.instance.CallEventAfter(0.9f, () => {
+            LeanTween.cancelAll();
             SceneManager.LoadScene(levelId);
         });
     }
@@ -109,6 +118,27 @@ public class PlayerUI : MonoBehaviour
 
         G_RS_RetryScreen.SetActive(true);
         LeanTween.scale(G_RS_RetryScreen, new Vector3(0, 0, 0), 0);
-        LeanTween.scale(G_RS_RetryScreen, new Vector3(1, 1, 1), .25f);
+        LeanTween.scale(G_RS_RetryScreen, new Vector3(1, 1, 1), .25f).setOnComplete(() =>
+        {
+            int earnedmoney = (int)((transform.position.z) / 10);
+            PowerUpManager.instance.AddMoneyToCurrent(earnedmoney, G_RS_MaxDistance.transform.position);
+        });
+    }
+
+    public void DisplaySongFor(string song_artist, string song_name, float time)
+    {
+        G_MP_CurrentSong.text = string.Format("{0}\n{1}", song_name, song_artist);
+
+        LeanTween.moveX(G_MP_CurrentSongParent, 
+            0,
+            2.0f).setEaseInOutExpo().setOnComplete(() =>
+            {
+                EventsCouroutiner.instance.CallEventAfter(time, () =>
+                {
+                    LeanTween.moveX(G_MP_CurrentSongParent,
+                        CScaler.referenceResolution.x * 1.5f,
+                        2.0f).setEaseInOutExpo();
+                });
+            });
     }
 }

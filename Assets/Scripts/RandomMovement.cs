@@ -12,11 +12,11 @@ public class RandomMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * Force);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, targetPosition, Time.deltaTime * Force);
 
         if (Timer >= Frequency)
         {
-            targetPosition = (Random.insideUnitSphere * Radius) + transform.parent.position;
+            targetPosition = (Random.insideUnitSphere * Radius);
             Timer = 0;
         }
         else

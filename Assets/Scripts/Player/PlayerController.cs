@@ -31,11 +31,13 @@ public class PlayerController : MonoBehaviour
     public AudioSource ASource;
     public AudioClip A_Explosion;
 
+    private MusicPlayer _MusicPlayer;
+
     [HideInInspector]
     public Rigidbody Rb3d;
     private List<Rigidbody> brokenRbs = new List<Rigidbody>();
     private BoxCollider[] p_collider;
-    private Vector3 playerPos;
+    private Vector3 playerPos, startcamlocalpos, camlocaloffset, startcamlocaleul, camlocaleul;
     private Vector2 startDragPos, dragDiff, prevdragDiff, dragVelocity, moveDir;
 
     private PlayerUI _PlayerUI;
@@ -47,6 +49,10 @@ public class PlayerController : MonoBehaviour
         Rb3d = PlayerModel.GetComponent<Rigidbody>();
         p_collider = PlayerModel.GetComponents<BoxCollider>();
         _PlayerUI = GetComponent<PlayerUI>();
+        _MusicPlayer = GameObject.FindObjectOfType<MusicPlayer>();
+
+        startcamlocalpos = _Camera.transform.localPosition;
+        startcamlocaleul = _Camera.transform.localEulerAngles;
 
         foreach(Transform t in BrokenModel)
         {
@@ -81,6 +87,14 @@ public class PlayerController : MonoBehaviour
         Rb3d.velocity = Vector3.Lerp(Rb3d.velocity, new Vector3(moveDir.x, moveDir.y, 0), Time.deltaTime * 5);
 
         PlayerModel.position = playerPos + transform.position;
+
+        camlocaloffset.x = Extensions.Remap(playerPos.x, MinPositions.x, MaxPositions.x, -4, 4);
+        camlocaloffset.y = Extensions.Remap(playerPos.y, MinPositions.y, MaxPositions.y, -4, 4);
+        _Camera.transform.localPosition = startcamlocalpos + camlocaloffset;
+
+        camlocaleul.y = Extensions.Remap(playerPos.x, MinPositions.x, MaxPositions.x, -4, 4);
+        camlocaleul.x = -Extensions.Remap(playerPos.y, MinPositions.y, MaxPositions.y, -4, 4);
+        _Camera.transform.localEulerAngles = startcamlocaleul + camlocaleul;
     }
 
     private void RotationUpdate()
@@ -126,6 +140,8 @@ public class PlayerController : MonoBehaviour
         if (collision.transform.tag == "ScenePowerup")
             return;
 
+        _MusicPlayer.StopMusic(2.0f);
+
         float collisionForce = (collision.impulse.magnitude / Time.fixedDeltaTime) + 1;
         //Debug.Log(collisionForce);
 
@@ -154,7 +170,7 @@ public class PlayerController : MonoBehaviour
         float t = 0.0f;
         EventsCouroutiner.instance.CallEventFor(5.0f, () =>
         {
-            t += Time.deltaTime / 50.0f;
+            t += Time.deltaTime / 75.0f;
             SE_Scanner.area = Mathf.Lerp(SE_Scanner.area, 1.0f, t);
         });
     }

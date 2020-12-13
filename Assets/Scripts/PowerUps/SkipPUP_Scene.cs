@@ -16,12 +16,22 @@ public class SkipPUP_Scene : MonoBehaviour
     bool started = false;
 
     Collider col;
+    LevelControl lctrl;
+    PlayerController pctrl;
+    ShaderEffect_BleedingColors bleedcolor;
 
     private void Awake()
     {
         col = GetComponent<Collider>();
 
         duration = PUP_SO.GetCurrentLevelData().pup_multiplier * PUP_SO.pup_levels.pup_base;
+    }
+
+    private void Start()
+    {
+        lctrl = GameObject.FindObjectOfType<LevelControl>();
+        pctrl = GameObject.FindObjectOfType<PlayerController>();
+        bleedcolor = Camera.main.GetComponent<ShaderEffect_BleedingColors>();
     }
 
     private void Update()
@@ -53,25 +63,28 @@ public class SkipPUP_Scene : MonoBehaviour
 
         float startspeed = 0.0f;
 
-        LevelControl lctrl = GameObject.FindObjectOfType<LevelControl>();
-        PlayerController pctrl = GameObject.FindObjectOfType<PlayerController>();
         lctrl.StopAllCoroutines();
-
         startspeed = pctrl.MovementSpeed;
-
         pctrl.EnableColliders(false);
+
+        bleedcolor.intensity = 0;
+        bleedcolor.shift = 0;
+
+        bleedcolor.enabled = true;
 
         while(upd)
         {
             if (s < maxspeed)
                 s += Time.deltaTime * 2.5f;
 
+            bleedcolor.intensity = Extensions.Remap(s, 0, maxspeed * .25f, 0, 3);
+            bleedcolor.shift += Time.deltaTime;
+
             pctrl.MovementSpeed = pctrl.MovementSpeed + s;
 
             t += Time.deltaTime;
             if(t >= duration)
             {
-                
                 LeanTween.value(pctrl.MovementSpeed, startspeed, 1.5f).setOnUpdate((float val) =>
                 {
                     pctrl.MovementSpeed = val;
@@ -80,6 +93,11 @@ public class SkipPUP_Scene : MonoBehaviour
                     lctrl.StartCoroutine(lctrl.IncrementSpeed());
                     pctrl.EnableColliders(true);
                 });
+
+                LeanTween.value(bleedcolor.shift, 0, 1.25f).setEaseInOutCubic().setOnUpdate((float val) =>
+                {
+                    bleedcolor.shift = val;
+                }).setOnComplete(() => bleedcolor.enabled = false);
 
                 upd = false;
                 Destroy(gameObject);
