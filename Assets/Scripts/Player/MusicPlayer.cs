@@ -72,6 +72,22 @@ public class MusicPlayer : MonoBehaviour
         });
     }
 
+    public void AudioDistortion(float pitchdiff, float fadein, float fadeout)
+    {
+        float destpitch = 1.0f + pitchdiff;
+        LeanTween.value(ASource.pitch, destpitch, fadein).setOnUpdate((float v) =>
+        {
+            ASource.pitch = v;
+        }).setOnComplete(() =>
+        {
+            destpitch = 1.0f;
+            LeanTween.value(ASource.pitch, destpitch, fadeout).setOnUpdate((float v) =>
+            {
+                ASource.pitch = v;
+            });
+        });
+    }
+
     IEnumerator PlayMus()
     {
         Random.InitState(System.DateTime.Now.Millisecond);

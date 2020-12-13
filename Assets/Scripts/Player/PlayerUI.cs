@@ -132,11 +132,11 @@ public class PlayerUI : MonoBehaviour
         });
 
         float t = 0.0f;
-        LeanTween.value(t, 1.0f, 2.5f).setOnUpdate((float v) =>
+        LeanTween.value(t, .95f, 1.5f).setOnUpdate((float v) =>
         {
             ldi.intensity.value = -v * 100.0f;
             ldi.scale.value = 1 - v;
-        }).setEaseInOutElastic();
+        }).setEaseInOutBounce();//.setEaseInOutElastic();
     }
 
     public void DisplaySongFor(string song_artist, string song_name, float time)

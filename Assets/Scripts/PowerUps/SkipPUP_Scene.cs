@@ -19,6 +19,7 @@ public class SkipPUP_Scene : MonoBehaviour
     Collider col;
     LevelControl lctrl;
     PlayerController pctrl;
+    MusicPlayer mplayer;
 
     private PostProcessVolume v;
     private ChromaticAberration cab;
@@ -35,6 +36,7 @@ public class SkipPUP_Scene : MonoBehaviour
     {
         lctrl = GameObject.FindObjectOfType<LevelControl>();
         pctrl = GameObject.FindObjectOfType<PlayerController>();
+        mplayer = GameObject.FindObjectOfType<MusicPlayer>();
 
         v = Camera.main.GetComponent<PostProcessVolume>();
         v.profile.TryGetSettings(out cab);
@@ -73,6 +75,8 @@ public class SkipPUP_Scene : MonoBehaviour
         lctrl.StopAllCoroutines();
         startspeed = pctrl.MovementSpeed;
         pctrl.EnableColliders(false);
+
+        mplayer.AudioDistortion(maxspeed / 50, duration * 3 / 4, 1.5f);
 
         while(upd)
         {
