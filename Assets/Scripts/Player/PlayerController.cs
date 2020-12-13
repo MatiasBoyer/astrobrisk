@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using EZCameraShake;
 
 public class PlayerController : MonoBehaviour
 {
@@ -25,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public Transform NormalModel, BrokenModel;
 
     [Header("Camera")]
+    public Transform CameraPivot;
     public Camera _Camera;
 
     [Header("Audio Source")]
@@ -49,8 +49,8 @@ public class PlayerController : MonoBehaviour
         _PlayerUI = GetComponent<PlayerUI>();
         _MusicPlayer = GameObject.FindObjectOfType<MusicPlayer>();
 
-        startcamlocalpos = _Camera.transform.localPosition;
-        startcamlocaleul = _Camera.transform.localEulerAngles;
+        startcamlocalpos = CameraPivot.transform.localPosition;
+        startcamlocaleul = CameraPivot.transform.localEulerAngles;
 
         foreach(Transform t in BrokenModel)
         {
@@ -86,11 +86,11 @@ public class PlayerController : MonoBehaviour
 
         camlocaloffset.x = Extensions.Remap(playerPos.x, MinPositions.x, MaxPositions.x, -4, 4);
         camlocaloffset.y = Extensions.Remap(playerPos.y, MinPositions.y, MaxPositions.y, -4, 4);
-        _Camera.transform.localPosition = startcamlocalpos + camlocaloffset;
+        CameraPivot.transform.localPosition = startcamlocalpos + camlocaloffset;
 
         camlocaleul.y = Extensions.Remap(playerPos.x, MinPositions.x, MaxPositions.x, -4, 4);
         camlocaleul.x = -Extensions.Remap(playerPos.y, MinPositions.y, MaxPositions.y, -4, 4);
-        _Camera.transform.localEulerAngles = startcamlocaleul + camlocaleul;
+        CameraPivot.transform.localEulerAngles = startcamlocaleul + camlocaleul;
     }
 
     private void RotationUpdate()
@@ -157,7 +157,7 @@ public class PlayerController : MonoBehaviour
         Rb3d.velocity = Vector3.zero;
         MovementSpeed = 0.0f;
 
-        CameraShaker.Instance.ShakeOnce(15f, 5f, 0.0f, 2.5f);
+        CameraShake.instance.ShakeOnce(new CameraShake.ShakeSettings() { duration = 2.0f });
 
         ASource.PlayOneShot(A_Explosion);
 

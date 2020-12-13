@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.PostProcessing;
 using TMPro;
 
 public class PlayerUI : MonoBehaviour
@@ -36,11 +37,17 @@ public class PlayerUI : MonoBehaviour
 
     private CanvasScaler CScaler;
 
+    private PostProcessVolume ppv;
+    private LensDistortion ldi;
+
     private void Start()
     {
         PControl = GetComponent<PlayerController>();
         CScaler = CanvasRect.GetComponent<CanvasScaler>();
         Rb = PControl.Rb3d;
+
+        ppv = Camera.main.GetComponent<PostProcessVolume>();
+        ppv.profile.TryGetSettings(out ldi);
 
         LeanTween.move(G_Curtain, new Vector2(0, 0), 0).setOnComplete(() => {
             G_Curtain.gameObject.SetActive(true);
@@ -123,6 +130,13 @@ public class PlayerUI : MonoBehaviour
             int earnedmoney = (int)((transform.position.z) / 10);
             PowerUpManager.instance.AddMoneyToCurrent(earnedmoney, G_RS_MaxDistance.transform.position);
         });
+
+        float t = 0.0f;
+        LeanTween.value(t, 1.0f, 2.5f).setOnUpdate((float v) =>
+        {
+            ldi.intensity.value = -v * 100.0f;
+            ldi.scale.value = 1 - v;
+        }).setEaseInOutElastic();
     }
 
     public void DisplaySongFor(string song_artist, string song_name, float time)
