@@ -86,22 +86,10 @@ public class SkipPUP_Scene : MonoBehaviour
         LeanTween.value(ldi.intensity, -50, duration * 3 / 4).setOnUpdate((float val) =>
         {
             ldi.intensity.value = val;
-        }).setOnComplete(() =>
-        {
-            LeanTween.value(ldi.intensity, 0, duration * 1 / 4).setOnUpdate((float val) =>
-            {
-                ldi.intensity.value = val;
-            });
         });
         LeanTween.value(cab.intensity, 1, duration * 3 / 4).setOnUpdate((float val) =>
         {
             cab.intensity.value = val;
-        }).setOnComplete(() =>
-        {
-            LeanTween.value(cab.intensity, 0, duration * 1 / 4).setOnUpdate((float val) =>
-            {
-                cab.intensity.value = val;
-            });
         });
 
         while (upd)
@@ -109,12 +97,23 @@ public class SkipPUP_Scene : MonoBehaviour
             if (s < maxspeed)
                 s += Time.deltaTime * 2.5f;
 
-            pctrl.MovementSpeed = pctrl.MovementSpeed + s;
+            pctrl.MovementSpeed += s;
 
             t += Time.deltaTime;
             if(t >= duration)
             {
-                LeanTween.value(pctrl.MovementSpeed, startspeed, 1.5f).setOnUpdate((float val) =>
+                float fadeoutduration = 1.5f;
+
+                LeanTween.value(ldi.intensity, 0, fadeoutduration).setOnUpdate((float val) =>
+                {
+                    ldi.intensity.value = val;
+                });
+                LeanTween.value(cab.intensity, 0, fadeoutduration).setOnUpdate((float val) =>
+                {
+                    cab.intensity.value = val;
+                });
+
+                LeanTween.value(pctrl.MovementSpeed, startspeed, fadeoutduration).setOnUpdate((float val) =>
                 {
                     pctrl.MovementSpeed = val;
                 }).setOnComplete(() =>
