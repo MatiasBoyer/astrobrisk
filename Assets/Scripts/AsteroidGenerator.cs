@@ -22,6 +22,7 @@ public class AsteroidGenerator : MonoBehaviour
 
     private void Awake()
     {
+        LeanTween.init(1024*2);
         PController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
         StartCoroutine(GenerateOnProximity());
@@ -38,25 +39,24 @@ public class AsteroidGenerator : MonoBehaviour
             if (distToPlayer <= MinDistToGenerate)
             {
                 //Debug.Log("distToPlayer <= MinDistToGenerate");
+                    for (int i = 0; i < QuantityOnGeneration; i++)
+                    {
+                        float nextStep = Random.Range(MinInStep, MaxInStep);
+                        GameObject randomPrefab = Prefabs[Random.Range(0, Prefabs.Length - 1)];
 
-                for (int i = 0; i < QuantityOnGeneration; i++)
-                {
-                    float nextStep = Random.Range(MinInStep, MaxInStep);
-                    GameObject randomPrefab = Prefabs[Random.Range(0, Prefabs.Length - 1)];
+                        Vector3 prefabPos = new Vector3(Random.Range(MinPos.x, MaxPos.x), Random.Range(MinPos.y, MaxPos.y), transform.position.z);
 
-                    Vector3 prefabPos = new Vector3(Random.Range(MinPos.x, MaxPos.x), Random.Range(MinPos.y, MaxPos.y), transform.position.z);
+                        GameObject instantiated = (GameObject)Instantiate(randomPrefab, prefabPos, Random.rotation, GeneratedParent);
 
-                    GameObject instantiated = (GameObject) Instantiate(randomPrefab, prefabPos, Random.rotation, GeneratedParent);
+                        Vector3 randomScale = new Vector3(1, 1, 1) * Random.Range(MinSize, MaxSize);
 
-                    Vector3 randomScale = new Vector3(1, 1, 1) * Random.Range(MinSize, MaxSize);
+                        float randTime = Random.Range(0.5f, 1.5f);
 
-                    float randTime = Random.Range(0.5f, 1.5f);
+                        LeanTween.scale(instantiated, new Vector3(0, 0, 0), 0);
+                        LeanTween.scale(instantiated, randomScale, randTime).setEaseInOutBounce();
 
-                    LeanTween.scale(instantiated, new Vector3(0, 0, 0), 0);
-                    LeanTween.scale(instantiated, randomScale, randTime).setEaseInOutBounce();
-
-                    transform.Translate(transform.forward * nextStep);
-                }
+                        transform.Translate(transform.forward * nextStep);
+                    }
             }
 
             yield return null;

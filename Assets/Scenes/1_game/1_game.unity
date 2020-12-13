@@ -232,10 +232,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0f9b026aafd68f44acde1838b7bd3f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dur: 0.5
-  mag: 5
-  forc: 7
-  rettime: 1
 --- !u!850595691 &898287838
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -614,6 +610,34 @@ PrefabInstance:
       propertyPath: DefaultPosInfluence.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 766577759, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
+      propertyPath: Songs.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 766577759, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
+      propertyPath: Songs.Array.data[2].song_name
+      value: Outer Orbit
+      objectReference: {fileID: 0}
+    - target: {fileID: 766577759, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
+      propertyPath: Songs.Array.data[2].song_artist
+      value: Revolution Void
+      objectReference: {fileID: 0}
+    - target: {fileID: 766577759, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
+      propertyPath: Songs.Array.data[2].song
+      value: 
+      objectReference: {fileID: 8300000, guid: 3018687c7c0be4a49837be10e5599f6f, type: 3}
+    - target: {fileID: 766577759, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
+      propertyPath: Songs.Array.data[3].song_name
+      value: do it
+      objectReference: {fileID: 0}
+    - target: {fileID: 766577759, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
+      propertyPath: Songs.Array.data[3].song_artist
+      value: Jahzzar
+      objectReference: {fileID: 0}
+    - target: {fileID: 766577759, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
+      propertyPath: Songs.Array.data[3].song
+      value: 
+      objectReference: {fileID: 8300000, guid: a7526354bbf2b2b4990921181e41e65a, type: 3}
     - target: {fileID: 7811260626427989210, guid: 32c1931da973e71428ffa0f550dc9675, type: 3}
       propertyPath: m_Name
       value: Player

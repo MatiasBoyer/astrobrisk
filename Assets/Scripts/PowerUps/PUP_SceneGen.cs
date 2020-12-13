@@ -41,20 +41,20 @@ public class PUP_SceneGen : MonoBehaviour
             {
                 //Debug.Log("distToPlayer <= MinDistToGenerate");
 
-                for (int i = 0; i < QuantityOnGeneration; i++)
-                {
-                    float nextStep = Random.Range(MinInStep, MaxInStep);
-                    Vector3 prefabPos = new Vector3(Random.Range(MinPos.x, MaxPos.x), Random.Range(MinPos.y, MaxPos.y), transform.position.z);
+                    for (int i = 0; i < QuantityOnGeneration; i++)
+                    {
+                        float nextStep = Random.Range(MinInStep, MaxInStep);
+                        Vector3 prefabPos = new Vector3(Random.Range(MinPos.x, MaxPos.x), Random.Range(MinPos.y, MaxPos.y), transform.position.z);
 
-                    GameObject instantiated = (GameObject)Instantiate(PUP_ToGen, prefabPos, Quaternion.identity);
+                        GameObject instantiated = (GameObject)Instantiate(PUP_ToGen, prefabPos, Quaternion.identity);
 
-                    float randTime = Random.Range(0.5f, 1.5f);
+                        float randTime = Random.Range(0.5f, 1.5f);
 
-                    LeanTween.scale(instantiated, new Vector3(0, 0, 0), 0);
-                    LeanTween.scale(instantiated, new Vector3(1.0f, 1.0f, 1.0f), randTime).setEaseInOutBounce();
+                        LeanTween.scale(instantiated, new Vector3(0, 0, 0), 0);
+                        LeanTween.scale(instantiated, new Vector3(1.0f, 1.0f, 1.0f), randTime).setEaseInOutBounce();
 
-                    transform.Translate(transform.forward * nextStep);
-                }
+                        transform.Translate(transform.forward * nextStep);
+                    }
             }
 
             yield return null;

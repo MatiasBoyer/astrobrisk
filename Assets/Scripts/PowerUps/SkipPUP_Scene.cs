@@ -30,10 +30,7 @@ public class SkipPUP_Scene : MonoBehaviour
         col = GetComponent<Collider>();
 
         duration = PUP_SO.GetCurrentLevelData().pup_multiplier * PUP_SO.pup_levels.pup_base;
-    }
 
-    private void Start()
-    {
         lctrl = GameObject.FindObjectOfType<LevelControl>();
         pctrl = GameObject.FindObjectOfType<PlayerController>();
         mplayer = GameObject.FindObjectOfType<MusicPlayer>();
@@ -41,6 +38,11 @@ public class SkipPUP_Scene : MonoBehaviour
         v = Camera.main.GetComponent<PostProcessVolume>();
         v.profile.TryGetSettings(out cab);
         v.profile.TryGetSettings(out ldi);
+    }
+
+    private void Start()
+    {
+        StartCoroutine(chck_dist(2.0f));
     }
 
     private void Update()
@@ -61,11 +63,12 @@ public class SkipPUP_Scene : MonoBehaviour
         }
     }
 
+
+    bool upd = false;
     IEnumerator pup_skip()
     {
+        upd = true;
         started = true;
-
-        bool upd = true;
 
         float t = 0.0f;
         float s = 0.0f;
@@ -76,36 +79,37 @@ public class SkipPUP_Scene : MonoBehaviour
         startspeed = pctrl.MovementSpeed;
         pctrl.EnableColliders(false);
 
+        //Debug.Log(duration);
+
         mplayer.AudioDistortion(maxspeed / 50, duration * 3 / 4, 1.5f);
 
-        while(upd)
+        LeanTween.value(ldi.intensity, -50, duration * 3 / 4).setOnUpdate((float val) =>
+        {
+            ldi.intensity.value = val;
+        }).setOnComplete(() =>
+        {
+            LeanTween.value(ldi.intensity, 0, duration * 1 / 4).setOnUpdate((float val) =>
+            {
+                ldi.intensity.value = val;
+            });
+        });
+        LeanTween.value(cab.intensity, 1, duration * 3 / 4).setOnUpdate((float val) =>
+        {
+            cab.intensity.value = val;
+        }).setOnComplete(() =>
+        {
+            LeanTween.value(cab.intensity, 0, duration * 1 / 4).setOnUpdate((float val) =>
+            {
+                cab.intensity.value = val;
+            });
+        });
+
+        while (upd)
         {
             if (s < maxspeed)
                 s += Time.deltaTime * 2.5f;
 
             pctrl.MovementSpeed = pctrl.MovementSpeed + s;
-
-            LeanTween.value(ldi.intensity, -50, duration * 3/4).setOnUpdate((float val) => 
-            {
-                ldi.intensity.value = val;
-            }).setOnComplete(() =>
-            {
-                LeanTween.value(ldi.intensity, 0, duration * 1 / 4).setOnUpdate((float val) =>
-                {
-                    ldi.intensity.value = val;
-                });
-            });
-
-            LeanTween.value(cab.intensity, 1, duration * 3/4).setOnUpdate((float val) =>
-            {
-                cab.intensity.value = val;
-            }).setOnComplete(() =>
-            {
-                LeanTween.value(cab.intensity, 0, duration * 1/4).setOnUpdate((float val) =>
-                {
-                    cab.intensity.value = val;
-                });
-            });
 
             t += Time.deltaTime;
             if(t >= duration)
@@ -128,4 +132,17 @@ public class SkipPUP_Scene : MonoBehaviour
         }
     }
 
+    IEnumerator chck_dist(float t)
+    {
+        while(true)
+        {
+            if (!upd)
+            {
+                float dist = Vector3.Distance(transform.position, pctrl.transform.position);
+                if (dist >= 1000.0f)
+                    Destroy(gameObject);
+            }
+            yield return new WaitForSeconds(t);
+        }
+    }
 }
