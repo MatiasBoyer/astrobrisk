@@ -7,6 +7,7 @@ Infinite scroller android game source.
 ![Game](Docs/Images/2.png)
 
 ## How does the game work?
+Please keep in mind that this readme.md was made for an earlier version of the game. Some stuff may have been changed.
 ### 0_main.unity:
 #### MainMenuController
 	* controls the buttons on the main menu
