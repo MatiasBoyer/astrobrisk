@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pup_name: Money Grabber
   pup_desc: Grabs money when you destroy an asteroid
+  pup_img: {fileID: 2800000, guid: 58147d6cf789e354fab7f5d723bf4481, type: 3}
   pup_levels:
     pup_base: 100
     Levels:

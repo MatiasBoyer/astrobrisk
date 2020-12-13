@@ -39,7 +39,7 @@ public class PUP_ShopItem : MonoBehaviour
         UI_Name.text = pup_so.name;
         UI_Description.text = pup_so.pup_desc;
         UpdateUICost();
-        UI_Image.texture = null; // UPDATE_THIS!
+        UI_Image.texture = pup_so.pup_img;
     }
 
     public void Upgrade()

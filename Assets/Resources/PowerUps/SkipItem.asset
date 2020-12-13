@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pup_name: Skip Item
   pup_desc: An item that skips a great amount of distance.
+  pup_img: {fileID: 2800000, guid: 43e9346376e64d74db98cf860fa7e6da, type: 3}
   pup_levels:
     pup_base: 1
     Levels:
@@ -27,6 +28,6 @@ MonoBehaviour:
       pup_multiplier: 4
     - UpgradeCost: 5000
       pup_multiplier: 5
-  CurrentLevel: -1
+  CurrentLevel: 0
   DefaultLevel: -1
   pup_gameobject: {fileID: 4257217713019302146, guid: d030a8d2dd311764587de316964ab0cb, type: 3}

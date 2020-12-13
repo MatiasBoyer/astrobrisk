@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pup_name: Missile Shooter
   pup_desc: Shoots missiles
+  pup_img: {fileID: 2800000, guid: 6cdf468c01406b644b91edd3837e56fe, type: 3}
   pup_levels:
     pup_base: 3
     Levels:
@@ -21,6 +22,6 @@ MonoBehaviour:
       pup_multiplier: 1
     - UpgradeCost: 1000
       pup_multiplier: 0.5
-  CurrentLevel: 0
+  CurrentLevel: -1
   DefaultLevel: -1
   pup_gameobject: {fileID: 8006173915164843602, guid: 4dae3930be2f2c74ca97aa0ce972c21e, type: 3}

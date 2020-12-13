@@ -26,6 +26,9 @@ public class PowerUpSO : ScriptableObject
     [Tooltip("Description displayed on the shop.")]
     public string pup_desc;
 
+    [Tooltip("Image shown on the shop.")]
+    public Texture pup_img;
+
     [Tooltip("Levels you can buy on the shop.")]
     public _PUP_LevelSettings pup_levels;
     public int CurrentLevel = -1;
