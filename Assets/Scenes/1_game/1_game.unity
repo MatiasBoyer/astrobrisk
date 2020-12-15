@@ -232,6 +232,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0f9b026aafd68f44acde1838b7bd3f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &861400485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861400478}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42cd8dcae69d178488f5efa28e7c7e78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shader: {fileID: 4800000, guid: 95703b29f49b899499233ea7308bb800, type: 3}
+  BlockCount: 100
 --- !u!850595691 &898287838
 LightingSettings:
   m_ObjectHideFlags: 0
