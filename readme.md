@@ -2,10 +2,10 @@
 Infinite scroller android game source.
 
 ## Screenshots
-![Main menu](Docs/Images/0.png)
-![PowerUp Shop](Docs/Images/1.png)
-![Game](Docs/Images/2.png)
-![Retry Screen](Docs/Images/3.png)
+![Main menu](docs/Images/0.png)
+![PowerUp Shop](docs/Images/1.png)
+![Game](docs/Images/2.png)
+![Retry Screen](docs/Images/3.png)
 
 ## How does the game work?
 Please keep in mind that this readme.md was made for an earlier version of the game. Some stuff may have been changed.
