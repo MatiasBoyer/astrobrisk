@@ -49,6 +49,8 @@ public class PlayerUI : MonoBehaviour
         ppv = Camera.main.GetComponent<PostProcessVolume>();
         ppv.profile.TryGetSettings(out ldi);
 
+        
+
         LeanTween.move(G_Curtain, new Vector2(0, 0), 0).setOnComplete(() => {
             G_Curtain.gameObject.SetActive(true);
             LeanTween.move(G_Curtain, new Vector2(-2000, 0), 1.0f).setOnComplete(() => { G_Curtain.gameObject.SetActive(false); });

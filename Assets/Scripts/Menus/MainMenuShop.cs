@@ -13,9 +13,12 @@ public class MainMenuShop : MonoBehaviour
     public TextMeshProUGUI UI_CurrentMoney;
     public PUP_ShopItem PUPItemPref;
 
+    private RectTransform rtransform;
+
     private void Awake()
     {
-        LeanTween.move(gameObject, new Vector2(Screen.width / 2, -Screen.height / 2), 0.0f);
+        rtransform = GetComponent<RectTransform>();
+        LeanTween.move(rtransform, new Vector2(0, -1920), 0.0f);
     }
 
     private void Start()
@@ -44,10 +47,10 @@ public class MainMenuShop : MonoBehaviour
         switch (open)
         {
             case true:
-                LeanTween.move(gameObject, new Vector2(Screen.width / 2, Screen.height / 2), 1.0f).setEaseInOutCubic();
+                LeanTween.move(rtransform, new Vector2(0, 0), 1.0f).setEaseInOutCubic();
                 break;
             case false:
-                LeanTween.move(gameObject, new Vector2(Screen.width / 2, -Screen.height / 2), 1.0f).setEaseInOutCubic();
+                LeanTween.move(rtransform, new Vector2(0, -1920), 1.0f).setEaseInOutCubic();
                 break;
         }
     }
