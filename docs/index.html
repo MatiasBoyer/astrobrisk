@@ -1,1 +1,23 @@
-test
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | ASTROBRISK</title>
+  </head>
+  <body style="text-align: center">
+    <canvas id="unity-canvas" style="width: 540px; height: 960px; background: #231F20"></canvas>
+    <script src="Build/docs.loader.js"></script>
+    <script>
+      createUnityInstance(document.querySelector("#unity-canvas"), {
+        dataUrl: "Build/docs.data.gz",
+        frameworkUrl: "Build/docs.framework.js.gz",
+        codeUrl: "Build/docs.wasm.gz",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "bigma_apps",
+        productName: "ASTROBRISK",
+        productVersion: "dev",
+      });
+    </script>
+  </body>
+</html>
