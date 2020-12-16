@@ -17,6 +17,8 @@ public class MainMenuShop : MonoBehaviour
 
     private void Awake()
     {
+        Application.targetFrameRate = 0;
+
         rtransform = GetComponent<RectTransform>();
         LeanTween.move(rtransform, new Vector2(0, -1920), 0.0f);
     }
