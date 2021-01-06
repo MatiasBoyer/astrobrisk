@@ -170,6 +170,11 @@ public class PlayerController : MonoBehaviour
             b.enabled = _enable;
     }
 
+    public Collider[] ReturnPlayerColliders()
+    {
+        return p_collider;
+    }
+
     private void OnGUI()
     {
         //GUI.color = new Color(1, 1, 1, 1);

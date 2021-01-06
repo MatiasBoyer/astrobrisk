@@ -34,6 +34,7 @@ public class PowerUpManager : MonoBehaviour
 
     private PlayerUI PUI;
     private PowerUpSO moneygrabbr_pup;
+    private GameObject ExplosionSoundPrefab;
 
     private void Awake()
     {
@@ -55,6 +56,8 @@ public class PowerUpManager : MonoBehaviour
         }
 
         moneygrabbr_pup = FindPUPByName("MoneyGrabber");
+
+        ExplosionSoundPrefab = Resources.Load("ExplosionSound") as GameObject;
     }
 
     private void OnEnable()
@@ -93,5 +96,20 @@ public class PowerUpManager : MonoBehaviour
 
         Debug.LogError(string.Format(" Couldn't find the PowerUP by the name of '{0}'", name));
         return null;
+    }
+
+    public void DestroyGameobjectWithAnim(GameObject obj, int moneytogive = 0, float t = 0.25f, bool makeexplosionsound = true)
+    {
+        if(moneytogive != 0)
+            instance.AddMoneyToCurrent(instance.ReturnMoneyToGive(), obj.transform.position);
+
+        if(makeexplosionsound)
+            Instantiate(ExplosionSoundPrefab, transform.position, Quaternion.identity);
+
+        Collider c = obj.GetComponent<Collider>();
+        if (c != null)
+            c.enabled = false;
+
+        LeanTween.scale(obj, new Vector3(0, 0, 0), t).setEaseInOutBounce().setOnComplete(() => Destroy(obj));
     }
 }

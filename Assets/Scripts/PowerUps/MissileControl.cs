@@ -87,10 +87,13 @@ public class MissileControl : MonoBehaviour
     public void DestroyTarget()
     {
         //Destroy(Target.gameObject);
+        /*
         PowerUpManager.instance.AddMoneyToCurrent(PowerUpManager.instance.ReturnMoneyToGive(), transform.position);
         Instantiate(ExplosionSoundPrefab, transform.position, Quaternion.identity);
 
-        LeanTween.scale(Target.gameObject, new Vector3(0, 0, 0), 0.25f).setEaseInOutBounce().setOnComplete(() => Destroy(Target.gameObject));
+        LeanTween.scale(Target.gameObject, new Vector3(0, 0, 0), 0.25f).setEaseInOutBounce().setOnComplete(() => Destroy(Target.gameObject));*/
+        PowerUpManager.instance.DestroyGameobjectWithAnim(Target.gameObject, PowerUpManager.instance.ReturnMoneyToGive());
+
         Destroy(gameObject);
     }
 

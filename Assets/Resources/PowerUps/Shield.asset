@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11854a203bd205a439917efce8c35e79, type: 3}
+  m_Name: Shield
+  m_EditorClassIdentifier: 
+  pup_name: Shield
+  pup_desc: A shield that protects you from asteroids.
+  pup_img: {fileID: 0}
+  pup_levels:
+    pup_base: 1
+    Levels:
+    - UpgradeCost: 2500
+      pup_multiplier: 1
+    - UpgradeCost: 5000
+      pup_multiplier: 2
+    - UpgradeCost: 10000
+      pup_multiplier: 3
+  CurrentLevel: -1
+  DefaultLevel: -1
+  pup_gameobject: {fileID: 5642787498843011608, guid: a005dbf1952034f40b34bfa0211be0b1, type: 3}
